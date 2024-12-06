@@ -28,6 +28,8 @@
 
     #container {
         max-width: 80%;
+        border-radius: 50px;
+
     }
     a{
         text-decoration: none;
@@ -38,6 +40,8 @@
     }
     .card{
         border-radius: 50px;
+        border: none;
+
     }
     #fav{
         color: green;
@@ -98,7 +102,10 @@
                                 placeholder="Search For your picture" aria-label="Search">
                         </form>
                         <li class="nav-item">
-                            <a class="nav-link" href="favorite"><i class="fa-regular fa-star"></i>&nbsp;&nbsp;Favorite</a>
+                            <a class="nav-link" href="logout"><i class="fa-regular fa-user"></i>&nbsp;Logout</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="favorite"><i class="fa-regular fa-star"></i>&nbsp;Favorite</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="../view_all"><i class="fa-regular fa-eye"></i>&nbsp; View All
@@ -114,62 +121,119 @@
         </nav>
 
         <div id="container" class="container mt-4">
-            <h1>Your Pictures</h1>
+            <!-- {% if images.count > 4 %} -->
+                <a href="view_all" class="btn btn-primary" style="float: right;">See More</a>
+                <h1>Your Pictures</h1>
+
             <div class="row bg-white p-4">
+                {% for image in images|slice:":4" %}
                 <div class="col-md-3">
-                    <a href="picture.html" class="card ">
-                        <img src="blue_shirt.jpg"  alt="">
-                        <div id="option" class="row">
-                            <a id="fav" href="fav" class="col"><i class="fa-regular fa-star"></i>&nbsp;Favorite</a>
-                            <a id="delete" href="delete" class="col"><i class="fa-solid fa-trash"></i>&nbsp;Delete</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div id="container" class="container mt-4">
-                <h1>Your video</h1>
-                <div class="row bg-white p-4">
-                    <div class="col-md-3">
-                        <a href="picture.html" class="card ">
-                            <img src="blue_shirt.jpg"  alt="">
+                    <a href="picture/{{ image.id }}">
+                        <div class="card text-center">
+                            <img src="{{ image.file.url }}" style="height: 350px; width: 300px; display: block; margin: 0 auto;" alt="{{ image.name }}">
                             <div id="option" class="row">
-                                <a id="fav" href="fav" class="col"><i class="fa-regular fa-star"></i>&nbsp;Favorite</a>
-                                <a id="delete" href="delete" class="col"><i class="fa-solid fa-trash"></i>&nbsp;Delete</a>
+                                <a id="fav" href="fav/{{ image.id }}" class="col">
+                                    <i class="fa-regular fa-star"></i>&nbsp;Favorite
+                                </a>
+                                <a id="delete" href="delete/{{ image.id }}" class="col">
+                                    <i class="fa-solid fa-trash"></i>&nbsp;Delete
+                                </a>
                             </div>
                         </div>
-                    </div>
+                    </a>
                 </div>
-
-                <div id="container" class="container mt-4">
-                    <h1>Your audio</h1>
-                    <div class="row bg-white p-4">
-                        <div class="col-md-3">
-                            <a href="picture.html" class="card ">
-                                <img src="blue_shirt.jpg"  alt="">
-                                <div id="option" class="row">
-                                    <a id="fav" href="fav" class="col"><i class="fa-regular fa-star"></i>&nbsp;Favorite</a>
-                                    <a id="delete" href="delete" class="col"><i class="fa-solid fa-trash"></i>&nbsp;Delete</a>
-                                </div>
+                {% empty %}
+                <p>No pictures found.</p>
+                {% endfor %}
+            </div>
+           
+            {% endif %}
+        </div>
+        
+        <div id="container" class="container mt-4">
+            <!-- {% if images.count > 4 %} -->
+            <a href="view_all" class="btn btn-primary" style="float: right;">See More</a>
+            <h1>Your Videos</h1>
+            <div class="row bg-white p-4">
+                {% for video in videos|slice:":4" %}
+                <div class="col-md-3">
+                    <a href="picture/{{ video.id }}">
+                        <div class="card">
+                            <img src="{{ video.file.url }}" alt="{{ video.name }}">
+                            <div id="option" class="row">
+                                <a id="fav" href="fav/{{ video.id }}" class="col">
+                                    <i class="fa-regular fa-star"></i>&nbsp;Favorite
+                                </a>
+                                <a id="delete" href="delete/{{ video.id }}" class="col">
+                                    <i class="fa-solid fa-trash"></i>&nbsp;Delete
+                                </a>
                             </div>
                         </div>
-                    </div>
-
-                    <div id="container" class="container mt-4">
-                        <h1>Others</h1>
-                        <div class="row bg-white p-4">
-                            <div class="col-md-3">
-                                <a href="picture.html" class="card ">
-                                    <img src="blue_shirt.jpg"  alt="">
-                                    <div id="option" class="row">
-                                        <a id="fav" href="fav" class="col"><i class="fa-regular fa-star"></i>&nbsp;Favorite</a>
-                                        <a id="delete" href="delete" class="col"><i class="fa-solid fa-trash"></i>&nbsp;Delete</a>
-                                    </div>
-                                </div>
+                    </a>
+                </div>
+                {% empty %}
+                <p>No videos found.</p>
+                {% endfor %}
+            </div>
+            {% endif %}
+        </div>
+        
+        <div id="container" class="container mt-4">
+            <!-- {% if images.count > 4 %} -->
+            <a href="view_all" class="btn btn-primary" style="float: right;">See More</a>
+            <h1>Your Audio</h1>
+            <div class="row bg-white p-4">
+                {% for audio in audios|slice:":4" %}
+                <div class="col-md-3">
+                    <a href="picture/{{ audio.id }}">
+                        <div class="card">
+                            <img src="{{ audio.file.url }}" alt="{{ audio.name }}">
+                            <div id="option" class="row">
+                                <a id="fav" href="fav/{{ audio.id }}" class="col">
+                                    <i class="fa-regular fa-star"></i>&nbsp;Favorite
+                                </a>
+                                <a id="delete" href="delete/{{ audio.id }}" class="col">
+                                    <i class="fa-solid fa-trash"></i>&nbsp;Delete
+                                </a>
                             </div>
                         </div>
-
-
-
+                    </a>
+                </div>
+                {% empty %}
+                <p>No audio files found.</p>
+                {% endfor %}
+            </div>
+            {% endif %}
+        </div>
+        
+        <div id="container" class="container mt-4">
+            <!-- {% if images.count > 4 %} -->
+            <a href="view_all" class="btn btn-primary" style="float: right;">See More</a>
+            <h1>Others</h1>
+            <div class="row bg-white p-4">
+                {% for other in others|slice:":4" %}
+                <div class="col-md-3">
+                    <a href="picture/{{ other.id }}">
+                        <div class="card">
+                            <img src="other_placeholder.jpg" alt="{{ other.name }}">
+                            <div id="option" class="row">
+                                <a id="fav" href="fav/{{ other.id }}" class="col">
+                                    <i class="fa-regular fa-star"></i>&nbsp;Favorite
+                                </a>
+                                <a id="delete" href="delete/{{ other.id }}" class="col">
+                                    <i class="fa-solid fa-trash"></i>&nbsp;Delete
+                                </a>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                {% empty %}
+                <p>No other files found.</p>
+                {% endfor %}
+            </div>
+            {% endif %}
+        </div>
     </body>
-
-</html>
+    </html>
+   
+        

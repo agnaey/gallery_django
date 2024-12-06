@@ -10,6 +10,9 @@ class gallery (models.Model):
     audio=models.BooleanField(default=False)
     others=models.BooleanField(default=False)
 
+    def __str__(self):
+        return self.name
+
 class favorite(models.Model):
     user=models.ForeignKey(User,on_delete=models.CASCADE)
     gallery=models.ForeignKey(gallery,on_delete=models.CASCADE)
