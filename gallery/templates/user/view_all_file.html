@@ -26,20 +26,24 @@
         margin-left: 120px;
     }
 
-    #container {
+    #filter-buttons {
         max-width: 80%;
     }
-    a{
+
+    #container1 {
+        max-width: 95%;
+    }
+
+    a {
         text-decoration: none;
         color: #000;
     }
-    #option{
+
+    #option {
         margin: 20px;
     }
-    .card{
-        border-radius: 50px;
-    }
-    #fav{
+
+    #fav {
         color: green;
         font-size: 150%;
         font-weight: bold;
@@ -47,6 +51,7 @@
         text-align: center;
 
     }
+
     #fav:hover {
         transition: all 0.5s ease-in-out;
         color: white;
@@ -55,7 +60,7 @@
     }
 
 
-    #delete{
+    #delete {
         font-size: 150%;
         color: red;
         font-weight: bold;
@@ -63,15 +68,22 @@
         text-align: center;
 
     }
-    #delete:hover{
+
+    #delete:hover {
         color: white;
         background-color: red;
         border-radius: 20px;
-        
+
     }
-    .nav-link{
+
+    .nav-link {
         margin: 20px;
 
+    }
+
+    #file-container>div>a>img {
+        width: auto;
+        height: 350px;
     }
 </style>
 
@@ -80,7 +92,7 @@
     <body style="background-color: rgb(241,242,244);">
         <nav class="navbar navbar-expand-lg sticky-top">
             <li class="nav-item ">
-                <a href="#"><b id="logo">Gallery</b></a>
+                <a href="../index"><b id="logo">Gallery</b></a>
             </li>
             <div class="container">
 
@@ -98,7 +110,8 @@
                                 placeholder="Search For your picture" aria-label="Search">
                         </form>
                         <li class="nav-item">
-                            <a class="nav-link" href="../favorite"><i class="fa-regular fa-star"></i>&nbsp;&nbsp;Favorite</a>
+                            <a class="nav-link" href="../favorite"><i
+                                    class="fa-regular fa-star"></i>&nbsp;&nbsp;Favorite</a>
                         </li>
                         <!-- <li class="nav-item">
                             <a class="nav-link" href="../view_all"><i class="fa-regular fa-eye"></i>&nbsp; View All
@@ -113,22 +126,46 @@
             </div>
         </nav>
 
-        <div id="container" class="container mt-4">
-            <h1>All Files</h1>
-            <div class="row bg-white p-4">
-                <div class="col-md-3">
-                    <a href="picture.html" class="card ">
-                        <img src="blue_shirt.jpg"  alt="">
-                        <div id="option" class="row">
-                            <a id="fav" href="fav" class="col"><i class="fa-regular fa-star"></i>&nbsp;Favorite</a>
-                            <a id="delete" href="delete" class="col"><i class="fa-solid fa-trash"></i>&nbsp;Delete</a>
-                        </div>
-                    </div>
-                </div>
+        <div id="container1" class="container">
+            <div id="filter-buttons" class="container btn-group mb-4 d-flex justify-content-center" role="group"
+                aria-label="Filter by type">
+                <a href="?type=images"
+                    class="btn btn-primary {% if file_type == 'images' %}active{% endif %}">Images</a>
+                <a href="?type=videos"
+                    class="btn btn-primary {% if file_type == 'videos' %}active{% endif %}">Videos</a>
+                <a href="?type=audios"
+                    class="btn btn-primary {% if file_type == 'audios' %}active{% endif %}">Audios</a>
+                <a href="?type=others"
+                    class="btn btn-primary {% if file_type == 'others' %}active{% endif %}">Others</a>
             </div>
 
-
+            <div id="file-container" class="row">
+                {% for file in files %}
+                <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-4">
+                    <a href="file/{{ file.id }}" class="d-block">
+                        {% if file_type == 'videos' %}
+                        <video class="img-fluid" src="{{ file.file.url }}" controls></video>
+                        {% elif file_type == 'audios' %}
+                        <audio class="img-fluid" src="{{ file.file.url }}" controls></audio>
+                        {% else %}
+                        <img class="img-fluid" src="{{ file.file.url }}" alt="{{ file.name }}">
+                        {% endif %}
+                    </a>
+                    <div id="option" class="row">
+                        <a id="fav" href="fav/{{ file.f_id }}" class="col">
+                            <i class="fa-regular fa-star"></i>&nbsp;Favorite
+                        </a>
+                        <a id="delete" href="delete_file/{{ file.f_id }}" class="col">
+                            <i class="fa-solid fa-trash"></i>&nbsp;Delete
+                        </a>
+                    </div>
+                </div>
+                {% empty %}
+                <p class="col-12 text-center">No files found.</p>
+                {% endfor %}
+            </div>
         </div>
+
 
     </body>
 

@@ -11,9 +11,10 @@ urlpatterns = [
 
     path("index", views.index, name="index"),
     path('delete/<id>',views.delete),
+    path('delete_file/<id>',views.delete_file),
     path("picture/<id>", views.picture, name="picture"),
     path("fav/<id>", views.favorite, name="favorite"),
     path('add',views.add),
 
-    path('view_all',views.view_all)
+    path('view_all_file',views.view_all_file),
 ]

@@ -105,15 +105,15 @@
                             <a class="nav-link" href="logout"><i class="fa-regular fa-user"></i>&nbsp;Logout</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="favorite"><i class="fa-regular fa-star"></i>&nbsp;Favorite</a>
+                            <a class="nav-link" href="../favorite"><i class="fa-regular fa-star"></i>&nbsp;Favorite</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="../view_all"><i class="fa-regular fa-eye"></i>&nbsp; View All
+                            <a class="nav-link" href="../view_all_file"><i class="fa-regular fa-eye"></i>&nbsp; View All
                                 Files</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="add"><i class="fa-solid fa-plus"></i></i>&nbsp; Add
-                                Picture</a>
+                                File</a>
                         </li>
                     </ul>
                 </div>
@@ -122,7 +122,7 @@
 
         <div id="container" class="container mt-4">
             <!-- {% if images.count > 4 %} -->
-                <a href="view_all" class="btn btn-primary" style="float: right;">See More</a>
+                <a href="view_images" class="btn btn-primary" style="float: right;">See More</a>
                 <h1>Your Pictures</h1>
 
             <div class="row bg-white p-4">
@@ -152,14 +152,15 @@
         
         <div id="container" class="container mt-4">
             <!-- {% if images.count > 4 %} -->
-            <a href="view_all" class="btn btn-primary" style="float: right;">See More</a>
+            <a href="view_video" class="btn btn-primary" style="float: right;">See More</a>
             <h1>Your Videos</h1>
             <div class="row bg-white p-4">
                 {% for video in videos|slice:":4" %}
                 <div class="col-md-3">
                     <a href="picture/{{ video.id }}">
                         <div class="card">
-                            <img src="{{ video.file.url }}" alt="{{ video.name }}">
+                            <video class="img-fluid" src="{{ video.file.url }}" style="width: auto; height: auto;" alt="{{ video.name }}"
+                                controls></video>
                             <div id="option" class="row">
                                 <a id="fav" href="fav/{{ video.id }}" class="col">
                                     <i class="fa-regular fa-star"></i>&nbsp;Favorite
@@ -180,14 +181,14 @@
         
         <div id="container" class="container mt-4">
             <!-- {% if images.count > 4 %} -->
-            <a href="view_all" class="btn btn-primary" style="float: right;">See More</a>
+            <a href="view_audio" class="btn btn-primary" style="float: right;">See More</a>
             <h1>Your Audio</h1>
             <div class="row bg-white p-4">
                 {% for audio in audios|slice:":4" %}
                 <div class="col-md-3">
                     <a href="picture/{{ audio.id }}">
                         <div class="card">
-                            <img src="{{ audio.file.url }}" alt="{{ audio.name }}">
+                            <audio src="{{ audio.file.url }}" alt="{{ audio.name }}">
                             <div id="option" class="row">
                                 <a id="fav" href="fav/{{ audio.id }}" class="col">
                                     <i class="fa-regular fa-star"></i>&nbsp;Favorite
@@ -208,14 +209,14 @@
         
         <div id="container" class="container mt-4">
             <!-- {% if images.count > 4 %} -->
-            <a href="view_all" class="btn btn-primary" style="float: right;">See More</a>
+            <a href="view_other" class="btn btn-primary" style="float: right;">See More</a>
             <h1>Others</h1>
             <div class="row bg-white p-4">
                 {% for other in others|slice:":4" %}
                 <div class="col-md-3">
                     <a href="picture/{{ other.id }}">
                         <div class="card">
-                            <img src="other_placeholder.jpg" alt="{{ other.name }}">
+                            <img src="{{ other.file.url }}" alt="{{ other.name }}">
                             <div id="option" class="row">
                                 <a id="fav" href="fav/{{ other.id }}" class="col">
                                     <i class="fa-regular fa-star"></i>&nbsp;Favorite
