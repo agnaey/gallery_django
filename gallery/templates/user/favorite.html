@@ -115,16 +115,36 @@
         <div id="container" class="container mt-4">
             <h1>Favorites</h1>
             <div class="row bg-white p-4">
+                {% for fav in favorites %}
                 <div class="col-md-3">
-                    <a href="picture.html" class="card ">
-                        <img src="blue_shirt.jpg"  alt="">
+                    <a href="details/{{ fav.gallery.file_id }}" class="card">
+                        {% if fav.gallery.images %}
+                            <img src="{{ fav.gallery.file.url }}" alt="Image">
+                        {% elif fav.gallery.video %}
+                            <video controls>
+                                <source src="{{ fav.gallery.file.url }}" type="video/mp4">
+                            </video>
+                        {% elif fav.gallery.audio %}
+                            <audio controls>
+                                <source src="{{ fav.gallery.file.url }}" type="audio/mpeg">
+                            </audio>
+                        {% else %}
+                            <a href="{{ fav.gallery.file.url }}" download>Download Other File</a>
+                        {% endif %}
                         <div id="option" class="row">
-                            <a id="fav" href="fav" class="col"><i class="fa-regular fa-star"></i>&nbsp;Remove Favorite</a>
-                            <a id="delete" href="delete" class="col"><i class="fa-solid fa-trash"></i>&nbsp;Delete Picture</a>
+                            <a id="fav" href="remove_fav/{{ fav.gallery.file_id }}" class="col">
+                                <i class="fa-regular fa-star"></i>&nbsp;Remove Favorite
+                            </a>
+                            <a id="delete" href="delete/{{ fav.gallery.file_id }}" class="col">
+                                <i class="fa-solid fa-trash"></i>&nbsp;Delete
+                            </a>
                         </div>
                     </a>
                 </div>
+                {% endfor %}
             </div>
+        </div>
+        
 
 
         </div>

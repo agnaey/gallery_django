@@ -105,7 +105,7 @@
                             <a class="nav-link" href="logout"><i class="fa-regular fa-user"></i>&nbsp;Logout</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="../favorite"><i class="fa-regular fa-star"></i>&nbsp;Favorite</a>
+                            <a class="nav-link" href="../fav"><i class="fa-regular fa-star"></i>&nbsp;Favorite</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="../view_all_file"><i class="fa-regular fa-eye"></i>&nbsp; View All
@@ -130,9 +130,9 @@
                 <div class="col-md-3">
                     <a href="picture/{{ image.id }}">
                         <div class="card text-center">
-                            <img src="{{ image.file.url }}" style="height: 350px; width: 300px; display: block; margin: 0 auto;" alt="{{ image.name }}">
+                            <img src="{{ image.file.url }}" class="img-fluid" style="height: 350px; width: 300px; display: block; margin: 0 auto;" alt="{{ image.name }}">
                             <div id="option" class="row">
-                                <a id="fav" href="fav/{{ image.id }}" class="col">
+                                <a id="fav" href="add_fav/{{ item.id }}" class="col">
                                     <i class="fa-regular fa-star"></i>&nbsp;Favorite
                                 </a>
                                 <a id="delete" href="delete/{{ image.id }}" class="col">
@@ -162,7 +162,7 @@
                             <video class="img-fluid" src="{{ video.file.url }}" style="width: auto; height: auto;" alt="{{ video.name }}"
                                 controls></video>
                             <div id="option" class="row">
-                                <a id="fav" href="fav/{{ video.id }}" class="col">
+                                <a id="add_fav" href="add_fav/{{ video.id }}" class="col">
                                     <i class="fa-regular fa-star"></i>&nbsp;Favorite
                                 </a>
                                 <a id="delete" href="delete/{{ video.id }}" class="col">
@@ -190,7 +190,7 @@
                         <div class="card">
                             <audio src="{{ audio.file.url }}" alt="{{ audio.name }}">
                             <div id="option" class="row">
-                                <a id="fav" href="fav/{{ audio.id }}" class="col">
+                                <a id="fav" href="add_fav/{{ audio.id }}" class="col">
                                     <i class="fa-regular fa-star"></i>&nbsp;Favorite
                                 </a>
                                 <a id="delete" href="delete/{{ audio.id }}" class="col">
@@ -218,7 +218,7 @@
                         <div class="card">
                             <img src="{{ other.file.url }}" alt="{{ other.name }}">
                             <div id="option" class="row">
-                                <a id="fav" href="fav/{{ other.id }}" class="col">
+                                <a id="fav" href="add_fav/{{ other.id }}" class="col">
                                     <i class="fa-regular fa-star"></i>&nbsp;Favorite
                                 </a>
                                 <a id="delete" href="delete/{{ other.id }}" class="col">

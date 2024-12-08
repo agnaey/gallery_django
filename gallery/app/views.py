@@ -1,5 +1,5 @@
 from django.shortcuts import render,redirect,get_object_or_404
-from .models import gallery
+from .models import gallery,favorite
 import os
 from django.http import HttpResponse
 from django.contrib.auth import authenticate,login,logout
@@ -58,10 +58,6 @@ def index(request):
     }
     return render(request, 'user/index.html',context)
 def delete(request,id):
-    image = gallery.objects.get(id=id)
-    if os.path.exists(image.file.path):
-        os.remove(image.file.path)
-    image.delete()
     return redirect('index')
 
 def delete_file(request, id):
@@ -145,4 +141,20 @@ def add(request):
 
     return render(request, 'user/add.html')
 
-    
+def favorites_page(request):
+    user =User.objects.get(username=request.user.username)
+    favorites = favorite.objects.filter( user=user)[::-1]
+    return render(request, 'favorites.html', {'favorites': favorites})
+
+
+def add_to_fav(request,id):
+    gallerys=gallery.objects.get(id=id)
+    user =User.objects.get(username=request.session['user'])
+    data=favorite.objects.create(user=user,gallery=gallerys)
+    data.save()
+    return redirect('fav')
+
+def fav_delete(req,id):
+    data=favorite.objects.get(pk=id)
+    data.delete()
+    return redirect(favorites_page)
