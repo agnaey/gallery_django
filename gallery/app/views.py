@@ -95,14 +95,31 @@ def view_all_file(req):
 
     # return render(req,'user/view_all_img.html',{'images':images})
 
-def view_all_vid(req):
-    return render(req,'user/view_all_video.html')
+def see_more(req):
+    file_type = req.GET.get('type', '') 
+    if file_type == 'videos':
+        files = gallery.objects.filter(video=True)
+    elif file_type == 'audios':
+        files = gallery.objects.filter(audio=True)
+    elif file_type == 'others':
+        files = gallery.objects.filter(others=True)
+    else:
+        files = gallery.objects.filter(images=True)
 
-def view_all_audio(req):
-    return render(req,'user/view_all_audio.html')
+    context = {
+        'files': files,
+        'file_type': file_type,
+    }
+    return render(req,'user/see_more.html',context)
 
-def view_others(req):
-    return render(req,'user/view_others.html')
+# def view_all_vid(req):
+#     return render(req,'user/view_all_video.html')
+
+# def view_all_audio(req):
+#     return render(req,'user/view_all_audio.html')
+
+# def view_others(req):
+#     return render(req,'user/view_others.html')
 
 def add(request):
     if request.method == 'POST':
@@ -144,7 +161,7 @@ def add(request):
 def favorites_page(request):
     user =User.objects.get(username=request.user.username)
     favorites = favorite.objects.filter( user=user)[::-1]
-    return render(request, 'favorites.html', {'favorites': favorites})
+    return render(request, 'user/favorite.html' , {'favorites': favorites})
 
 
 def add_to_fav(request,id):

@@ -122,7 +122,7 @@
 
         <div id="container" class="container mt-4">
             <!-- {% if images.count > 4 %} -->
-                <a href="view_images" class="btn btn-primary" style="float: right;">See More</a>
+                <a href="see_more" class="btn btn-primary" style="float: right;">See More</a>
                 <h1>Your Pictures</h1>
 
             <div class="row bg-white p-4">
@@ -152,7 +152,7 @@
         
         <div id="container" class="container mt-4">
             <!-- {% if images.count > 4 %} -->
-            <a href="view_video" class="btn btn-primary" style="float: right;">See More</a>
+            <a href="see_more" class="btn btn-primary" style="float: right;">See More</a>
             <h1>Your Videos</h1>
             <div class="row bg-white p-4">
                 {% for video in videos|slice:":4" %}
@@ -162,7 +162,7 @@
                             <video class="img-fluid" src="{{ video.file.url }}" style="width: auto; height: auto;" alt="{{ video.name }}"
                                 controls></video>
                             <div id="option" class="row">
-                                <a id="add_fav" href="add_fav/{{ video.id }}" class="col">
+                                <a id="fav" href="add_fav/{{ video.id }}" class="col">
                                     <i class="fa-regular fa-star"></i>&nbsp;Favorite
                                 </a>
                                 <a id="delete" href="delete/{{ video.id }}" class="col">
@@ -181,7 +181,7 @@
         
         <div id="container" class="container mt-4">
             <!-- {% if images.count > 4 %} -->
-            <a href="view_audio" class="btn btn-primary" style="float: right;">See More</a>
+            <a href="see_more" class="btn btn-primary" style="float: right;">See More</a>
             <h1>Your Audio</h1>
             <div class="row bg-white p-4">
                 {% for audio in audios|slice:":4" %}
@@ -209,7 +209,7 @@
         
         <div id="container" class="container mt-4">
             <!-- {% if images.count > 4 %} -->
-            <a href="view_other" class="btn btn-primary" style="float: right;">See More</a>
+            <a href="see_more" class="btn btn-primary" style="float: right;">See More</a>
             <h1>Others</h1>
             <div class="row bg-white p-4">
                 {% for other in others|slice:":4" %}
