@@ -22,13 +22,13 @@ def login_user(req):
                 return redirect('index')
             else:
                 messages.info(req,'invalid credentials')
-            return redirect('login')
+            return redirect(login_user)
     return render(req,'login.html')
 
 def logout_user(req):
     logout(req)
     req.session.flush()
-    return redirect('login')
+    return redirect(login_user)
 
 def register(req):
     if req.method == 'POST':
@@ -49,6 +49,7 @@ def index(request):
     videos = gallery.objects.filter(video=True)
     audios = gallery.objects.filter(audio=True)
     others = gallery.objects.filter(others=True)
+    print(images,videos,audios)
 
     context = {
         'images': images,
@@ -58,9 +59,12 @@ def index(request):
     }
     return render(request, 'user/index.html',context)
 def delete(request,id):
-    return redirect('index')
+    data=gallery.objects.get(pk=id)
+    data.delete()
+    return redirect(index)
 
 def delete_file(request, id):
+
     return redirect('view_all_file')
 
 
@@ -72,7 +76,7 @@ def picture(request, id):
 
     return render(request, "user/picture.html", {"url": url})
 
-def favorite(request,id):
+def favorites(request,id):
     return render(request, 'user/favorite.html')
 
     # images=gallery.objects.filter(images=True)
@@ -95,8 +99,8 @@ def view_all_file(req):
 
     # return render(req,'user/view_all_img.html',{'images':images})
 
-def see_more(req):
-    file_type = req.GET.get('type', '') 
+def see_more(req,a):
+    file_type = req.GET.get('type', a) 
     if file_type == 'videos':
         files = gallery.objects.filter(video=True)
     elif file_type == 'audios':
