@@ -110,7 +110,7 @@
                                 placeholder="Search For your picture" aria-label="Search">
                         </form>
                         <li class="nav-item">
-                            <a class="nav-link" href="../favorite"><i
+                            <a class="nav-link" href="../fav"><i
                                     class="fa-regular fa-star"></i>&nbsp;&nbsp;Favorite</a>
                         </li>
                         <!-- <li class="nav-item">
@@ -152,10 +152,10 @@
                         {% endif %}
                     </a>
                     <div id="option" class="row">
-                        <a id="fav" href="fav/{{ file.f_id }}" class="col">
+                        <a id="fav" href="../add_fav/{{ file.pk }}" class="col">
                             <i class="fa-regular fa-star"></i>&nbsp;Favorite
                         </a>
-                        <a id="delete" href="delete_file/{{ file.f_id }}" class="col">
+                        <a id="delete" href="../delete_file/{{ file.id }}" class="col">
                             <i class="fa-solid fa-trash"></i>&nbsp;Delete
                         </a>
                     </div>

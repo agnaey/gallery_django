@@ -107,10 +107,10 @@
                         <li class="nav-item">
                             <a class="nav-link" href="../fav"><i class="fa-regular fa-star"></i>&nbsp;Favorite</a>
                         </li>
-                        <li class="nav-item">
+                        <!-- <li class="nav-item">
                             <a class="nav-link" href="../view_all_file"><i class="fa-regular fa-eye"></i>&nbsp; View All
                                 Files</a>
-                        </li>
+                        </li> -->
                         <li class="nav-item">
                             <a class="nav-link" href="add"><i class="fa-solid fa-plus"></i></i>&nbsp; Add
                                 File</a>
@@ -121,33 +121,34 @@
         </nav>
 
         <div id="container" class="container mt-4">
-                <a href="see_more/images" class="btn btn-primary" style="float: right;">See More</a>
-                <h1>Your Pictures</h1>
-
-            <div class="row p-4">
-                {% for image in images %}
+            <a href="see_more/videos" class="btn btn-dark" style="float: right;">See More</a>
+            <h1>Your Picture</h1>
+            <div class="row bg-white p-4">
+                {% for image in images|slice:":4" %}
                 <div class="col-md-3">
                     <a href="picture/{{ image.id }}">
-                        <div class="card text-center">
-                            <img src="{{ image.file.url }}" class="img-fluid" style="height: 350px; width: 300px; display: block; margin: 0 auto;" alt="{{ image.name }}">
+                        <div class="card">
+                            <img class="img-fluid" src="{{ image.file.url }}" style="width: auto; height: 380px;" alt="{{ image.name }}"
+                                controls></video>
                             <div id="option" class="row">
-                                <a id="fav" href="add_fav/{{ item.id }}" class="col">
+                                <a id="fav" href="add_fav/{{ image.id }}" class="col">
                                     <i class="fa-regular fa-star"></i>&nbsp;Favorite
                                 </a>
-                                <a id="delete" href="delete/{{ image.pk }}" class="col">
+                                <a id="delete" href="delete/{{ image.id }}" class="col">
                                     <i class="fa-solid fa-trash"></i>&nbsp;Delete
                                 </a>
                             </div>
                         </div>
                     </a>
                 </div>
+                {% empty %}
+                <p>No videos found.</p>
                 {% endfor %}
             </div>
-           
         </div>
         
         <div id="container" class="container mt-4">
-            <a href="see_more/videos" class="btn btn-primary" style="float: right;">See More</a>
+            <a href="see_more/videos" class="btn btn-dark" style="float: right;">See More</a>
             <h1>Your Videos</h1>
             <div class="row bg-white p-4">
                 {% for video in videos|slice:":4" %}
@@ -174,7 +175,7 @@
         </div>
         
         <div id="container" class="container mt-4">
-            <a href="see_more/audios" class="btn btn-primary" style="float: right;">See More</a>
+            <a href="see_more/audios" class="btn btn-dark" style="float: right;">See More</a>
             <h1>Your Audio</h1>
             <div class="row bg-white p-4">
                 {% for audio in audios|slice:":4" %}
@@ -200,7 +201,7 @@
         </div>
         
         <div id="container" class="container mt-4">
-            <a href="see_more/others" class="btn btn-primary" style="float: right;">See More</a>
+            <a href="see_more/others" class="btn btn-dark" style="float: right;">See More</a>
             <h1>Others</h1>
             <div class="row bg-white p-4">
                 {% for other in others|slice:":4" %}
@@ -209,9 +210,17 @@
                         <div class="card">
                             <img src="{{ other.file.url }}" alt="{{ other.name }}">
                             <div id="option" class="row">
+                                {% if fav1 %}
+                                <a id="fav" href="fav" class="col">
+                                    <i class="fa-regular fa-star"></i>&nbsp;Go to Favorite
+                                </a>
+
+                                {% else %}
                                 <a id="fav" href="add_fav/{{ other.id }}" class="col">
                                     <i class="fa-regular fa-star"></i>&nbsp;Favorite
                                 </a>
+                                {% endif %}
+
                                 <a id="delete" href="delete/{{ other.id }}" class="col">
                                     <i class="fa-solid fa-trash"></i>&nbsp;Delete
                                 </a>

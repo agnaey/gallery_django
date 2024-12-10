@@ -79,7 +79,7 @@
     <body style="background-color: rgb(241,242,244);">
         <nav class="navbar navbar-expand-lg sticky-top">
             <li class="nav-item ">
-                <a href="index"><b id="logo">Gallery</b></a>
+                <a href="../index"><b id="logo">Gallery</b></a>
             </li>
             <div class="container">
 
@@ -119,7 +119,7 @@
                 <div class="col-md-3">
                     <a href="details/{{ fav.gallery.file_id }}" class="card">
                         {% if fav.gallery.images %}
-                            <img src="{{ fav.gallery.file.url }}" alt="Image">
+                            <img src="{{ fav.gallery.file.url }}" style="height: 400px;" class="img-fluid" alt="Image">
                         {% elif fav.gallery.video %}
                             <video controls>
                                 <source src="{{ fav.gallery.file.url }}" type="video/mp4">

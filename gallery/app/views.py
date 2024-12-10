@@ -45,6 +45,7 @@ def register(req):
     return render(req, 'register.html')
 # ------------------user-------------------------
 def index(request):
+    # log_user=User.objects.get(username=request.session['user'])
     images = gallery.objects.filter(images=True)
     videos = gallery.objects.filter(video=True)
     audios = gallery.objects.filter(audio=True)
@@ -57,16 +58,22 @@ def index(request):
         'audios': audios,
         'others': others,
     }
+    # try:
+    #     fav1=favorite.objects.get(context=context,user=log_user)
+    # except:
+    #     fav1=None
+    #     print(fav1)
     return render(request, 'user_side/index.html',context)
+
 def delete(request,id):
     data=gallery.objects.get(pk=id)
     data.delete()
     return redirect(index)
 
 def delete_file(request, id):
-
-    return redirect('view_all_file')
-
+    data=gallery.objects.get(pk=id)
+    data.delete()
+    return redirect(see_more)
 
 
 
@@ -95,9 +102,8 @@ def view_all_file(req):
         'files': files,
         'file_type': file_type,
     }
-    return render(req, 'user_side/view_all_file.html', context)
+    return render(req, 'user_side/see_more.html', context)
 
-    # return render(req,'user_side/view_all_img.html',{'images':images})
 
 def see_more(req,a):
     file_type = req.GET.get('type', a) 
@@ -110,10 +116,7 @@ def see_more(req,a):
     else:
         files = gallery.objects.filter(images=True)
 
-    context = {
-        'files': files,
-        'file_type': file_type,
-    }
+    context = {'files': files,'file_type': file_type,}
     return render(req,'user_side/see_more.html',context)
 
 # def view_all_vid(req):
@@ -173,7 +176,7 @@ def add_to_fav(request,id):
     user =User.objects.get(username=request.session['user'])
     data=favorite.objects.create(user=user,gallery=gallerys)
     data.save()
-    return redirect('fav')
+    return redirect(favorites_page)
 
 def fav_delete(req,id):
     data=favorite.objects.get(pk=id)
