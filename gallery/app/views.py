@@ -49,7 +49,7 @@ def index(request):
     videos = gallery.objects.filter(video=True)
     audios = gallery.objects.filter(audio=True)
     others = gallery.objects.filter(others=True)
-    print(images,videos,audios)
+    print(images)
 
     context = {
         'images': images,
@@ -57,7 +57,7 @@ def index(request):
         'audios': audios,
         'others': others,
     }
-    return render(request, 'user/index.html',context)
+    return render(request, 'user_side/index.html',context)
 def delete(request,id):
     data=gallery.objects.get(pk=id)
     data.delete()
@@ -74,10 +74,10 @@ def picture(request, id):
     media_file = get_object_or_404(gallery, id=id)
     url = media_file.file.url
 
-    return render(request, "user/picture.html", {"url": url})
+    return render(request, "user_side/picture.html", {"url": url})
 
 def favorites(request,id):
-    return render(request, 'user/favorite.html')
+    return render(request, 'user_side/favorite.html')
 
     # images=gallery.objects.filter(images=True)
 def view_all_file(req):
@@ -95,9 +95,9 @@ def view_all_file(req):
         'files': files,
         'file_type': file_type,
     }
-    return render(req, 'user/view_all_file.html', context)
+    return render(req, 'user_side/view_all_file.html', context)
 
-    # return render(req,'user/view_all_img.html',{'images':images})
+    # return render(req,'user_side/view_all_img.html',{'images':images})
 
 def see_more(req,a):
     file_type = req.GET.get('type', a) 
@@ -114,16 +114,16 @@ def see_more(req,a):
         'files': files,
         'file_type': file_type,
     }
-    return render(req,'user/see_more.html',context)
+    return render(req,'user_side/see_more.html',context)
 
 # def view_all_vid(req):
-#     return render(req,'user/view_all_video.html')
+#     return render(req,'user_side/view_all_video.html')
 
 # def view_all_audio(req):
-#     return render(req,'user/view_all_audio.html')
+#     return render(req,'user_side/view_all_audio.html')
 
 # def view_others(req):
-#     return render(req,'user/view_others.html')
+#     return render(req,'user_side/view_others.html')
 
 def add(request):
     if request.method == 'POST':
@@ -158,14 +158,14 @@ def add(request):
                 audio=audio,
                 others=others
             )
-            return render(request, 'user/add.html', {'success': True})
+            return render(request, 'user_side/add.html', {'success': True})
 
-    return render(request, 'user/add.html')
+    return render(request, 'user_side/add.html')
 
 def favorites_page(request):
     user =User.objects.get(username=request.user.username)
     favorites = favorite.objects.filter( user=user)[::-1]
-    return render(request, 'user/favorite.html' , {'favorites': favorites})
+    return render(request, 'user_side/favorite.html' , {'favorites': favorites})
 
 
 def add_to_fav(request,id):

@@ -121,11 +121,10 @@
         </nav>
 
         <div id="container" class="container mt-4">
-            <!-- {% if images.count > 4 %} -->
                 <a href="see_more/images" class="btn btn-primary" style="float: right;">See More</a>
                 <h1>Your Pictures</h1>
 
-            <div class="row bg-white p-4">
+            <div class="row p-4">
                 {% for image in images %}
                 <div class="col-md-3">
                     <a href="picture/{{ image.id }}">
@@ -142,16 +141,12 @@
                         </div>
                     </a>
                 </div>
-                {% empty %}
-                <p>No pictures found.</p>
                 {% endfor %}
             </div>
            
-            {% endif %}
         </div>
         
         <div id="container" class="container mt-4">
-            <!-- {% if images.count > 4 %} -->
             <a href="see_more/videos" class="btn btn-primary" style="float: right;">See More</a>
             <h1>Your Videos</h1>
             <div class="row bg-white p-4">
@@ -176,11 +171,9 @@
                 <p>No videos found.</p>
                 {% endfor %}
             </div>
-            {% endif %}
         </div>
         
         <div id="container" class="container mt-4">
-            <!-- {% if images.count > 4 %} -->
             <a href="see_more/audios" class="btn btn-primary" style="float: right;">See More</a>
             <h1>Your Audio</h1>
             <div class="row bg-white p-4">
@@ -204,11 +197,9 @@
                 <p>No audio files found.</p>
                 {% endfor %}
             </div>
-            {% endif %}
         </div>
         
         <div id="container" class="container mt-4">
-            <!-- {% if images.count > 4 %} -->
             <a href="see_more/others" class="btn btn-primary" style="float: right;">See More</a>
             <h1>Others</h1>
             <div class="row bg-white p-4">
@@ -232,7 +223,6 @@
                 <p>No other files found.</p>
                 {% endfor %}
             </div>
-            {% endif %}
         </div>
     </body>
     </html>
