@@ -15,9 +15,10 @@ urlpatterns = [
     path("picture/<id>", views.picture, name="picture"),
     path("fav/<id>", views.favorites),
     path('add_fav/<id>',views.add_to_fav),
-    path('remove_fav/<id>',views.fav_delete),
     path('add',views.add),
     path('fav',views.favorites_page),
+    path('fav_delete/<id>',views.fav_delete),
+    path('remove_fav/<id>',views.remove_fav),
 
     path('view_all_file',views.view_all_file),
 

@@ -46,10 +46,10 @@ def register(req):
 # ------------------user-------------------------
 def index(request):
     # log_user=User.objects.get(username=request.session['user'])
-    images = gallery.objects.filter(images=True)
-    videos = gallery.objects.filter(video=True)
-    audios = gallery.objects.filter(audio=True)
-    others = gallery.objects.filter(others=True)
+    images = gallery.objects.filter(images=True)# , user=log_user)
+    videos = gallery.objects.filter(video=True)#, user=log_user)
+    audios = gallery.objects.filter(audio=True)#, user=log_user)
+    others = gallery.objects.filter(others=True)#, user=log_user)
     print(images)
 
     context = {
@@ -63,7 +63,7 @@ def index(request):
     # except:
     #     fav1=None
     #     print(fav1)
-    return render(request, 'user_side/index.html',context)
+    return render(request, 'user_side/index.html',context,)
 
 def delete(request,id):
     data=gallery.objects.get(pk=id)
@@ -179,6 +179,13 @@ def add_to_fav(request,id):
     return redirect(favorites_page)
 
 def fav_delete(req,id):
+    data=gallery.objects.get(pk=id)
+    data.delete()
+    return redirect(favorites_page)
+
+def remove_fav(req,id):
     data=favorite.objects.get(pk=id)
     data.delete()
     return redirect(favorites_page)
+
+ 
