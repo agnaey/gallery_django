@@ -142,15 +142,15 @@
             <div id="file-container" class="row">
                 {% for file in files %}
                 <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-4">
-                    <a href="file/{{ file.id }}" class="d-block">
+                    <!-- <a href="#" class="d-block"> -->
                         {% if file_type == 'videos' %}
                         <video class="img-fluid" src="{{ file.file.url }}" controls></video>
                         {% elif file_type == 'audios' %}
                         <audio class="img-fluid" src="{{ file.file.url }}" controls></audio>
                         {% else %}
-                        <img class="img-fluid" src="{{ file.file.url }}" alt="{{ file.name }}">
+                        <img class="img-fluid " src="{{ file.file.url }}" alt="{{ file.name }}">
                         {% endif %}
-                    </a>
+                    <!-- </a> -->
                     <div id="option" class="row">
                         <a id="fav" href="../add_fav/{{ file.pk }}" class="col">
                             <i class="fa-regular fa-star"></i>&nbsp;Favorite

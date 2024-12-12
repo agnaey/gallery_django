@@ -13,15 +13,15 @@ def login_user(req):
         return redirect('index')
     else:
         if req.method == 'POST':
-            username = req.POST.get('username')
-            password = req.POST.get('password')
+            username = req.POST['username']
+            password = req.POST['password']
             data=authenticate(username=username,password=password)
             if data:
                 login(req,data)
                 req.session['user'] = username
                 return redirect('index')
             else:
-                messages.info(req,'invalid credentials')
+                messages.info(req,'invalid username or password')
             return redirect(login_user)
     return render(req,'login.html')
 
@@ -32,24 +32,25 @@ def logout_user(req):
 
 def register(req):
     if req.method == 'POST':
-        username = req.POST.get('username')
-        email = req.POST.get('email')
-        password = req.POST.get('password')
+        username = req.POST['username']
+        email = req.POST['email']
+        password = req.POST['password']
         try:
-            user = User.objects.create_user(username=username, email=email, password=password)
+            user = User.objects.create_user(first_name=username,username=email, email=email, password=password)
             user.save()
+            messages.success(req, 'Account created successfully')
             return redirect('login')
-        except Exception as e:
+        except:
             messages.info(req, 'Invalid details, user may already exist')
             return redirect('/register')
     return render(req, 'register.html')
 # ------------------user-------------------------
 def index(request):
-    # log_user=User.objects.get(username=request.session['user'])
-    images = gallery.objects.filter(images=True)# , user=log_user)
-    videos = gallery.objects.filter(video=True)#, user=log_user)
-    audios = gallery.objects.filter(audio=True)#, user=log_user)
-    others = gallery.objects.filter(others=True)#, user=log_user)
+    log_user=User.objects.get(username=request.session['user'])
+    images = gallery.objects.filter(images=True , user=log_user)
+    videos = gallery.objects.filter(video=True, user=log_user)
+    audios = gallery.objects.filter(audio=True, user=log_user)
+    others = gallery.objects.filter(others=True, user=log_user)
     print(images)
 
     context = {
@@ -58,11 +59,11 @@ def index(request):
         'audios': audios,
         'others': others,
     }
-    # try:
-    #     fav1=favorite.objects.get(context=context,user=log_user)
-    # except:
-    #     fav1=None
-    #     print(fav1)
+    try:
+        fav1=favorite.objects.get(context=context,user=log_user)
+    except:
+        fav1=None
+        print(fav1)
     return render(request, 'user_side/index.html',context,)
 
 def delete(request,id):
@@ -73,7 +74,7 @@ def delete(request,id):
 def delete_file(request, id):
     data=gallery.objects.get(pk=id)
     data.delete()
-    return redirect(see_more)
+    return redirect(see_more,a='default')
 
 
 
@@ -83,8 +84,7 @@ def picture(request, id):
 
     return render(request, "user_side/picture.html", {"url": url})
 
-def favorites(request,id):
-    return render(request, 'user_side/favorite.html')
+
 
     # images=gallery.objects.filter(images=True)
 def view_all_file(req):
@@ -105,16 +105,19 @@ def view_all_file(req):
     return render(req, 'user_side/see_more.html', context)
 
 
-def see_more(req,a):
+def see_more(req,a=None):
+    log_user=User.objects.get(username=req.session['user'])
+    if a is None:
+        a='default'
     file_type = req.GET.get('type', a) 
     if file_type == 'videos':
-        files = gallery.objects.filter(video=True)
+        files = gallery.objects.filter(video=True, user=log_user)
     elif file_type == 'audios':
-        files = gallery.objects.filter(audio=True)
+        files = gallery.objects.filter(audio=True, user=log_user)
     elif file_type == 'others':
-        files = gallery.objects.filter(others=True)
+        files = gallery.objects.filter(others=True, user=log_user)
     else:
-        files = gallery.objects.filter(images=True)
+        files = gallery.objects.filter(images=True, user=log_user)
 
     context = {'files': files,'file_type': file_type,}
     return render(req,'user_side/see_more.html',context)
@@ -129,6 +132,7 @@ def see_more(req,a):
 #     return render(req,'user_side/view_others.html')
 
 def add(request):
+    log_user=User.objects.get(username=request.session['user'])
     if request.method == 'POST':
         file_id = request.POST.get('file_id')
         name = request.POST.get('name')
@@ -153,6 +157,7 @@ def add(request):
 
         if file_id and name and file and category:
             gallery.objects.create(
+                user=log_user,
                 file_id=file_id,
                 name=name,
                 file=file,

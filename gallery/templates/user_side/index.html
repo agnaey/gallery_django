@@ -153,7 +153,6 @@
             <div class="row bg-white p-4">
                 {% for video in videos|slice:":4" %}
                 <div class="col-md-3">
-                    <a href="picture/{{ video.id }}">
                         <div class="card">
                             <video class="img-fluid" src="{{ video.file.url }}" style="width: auto; height: auto;" alt="{{ video.name }}"
                                 controls></video>
@@ -166,7 +165,7 @@
                                 </a>
                             </div>
                         </div>
-                    </a>
+                   
                 </div>
                 {% empty %}
                 <p>No videos found.</p>

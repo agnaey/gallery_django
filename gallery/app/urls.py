@@ -13,7 +13,6 @@ urlpatterns = [
     path('delete/<id>',views.delete),
     path('delete_file/<id>',views.delete_file),
     path("picture/<id>", views.picture, name="picture"),
-    path("fav/<id>", views.favorites),
     path('add_fav/<id>',views.add_to_fav),
     path('add',views.add),
     path('fav',views.favorites_page),
