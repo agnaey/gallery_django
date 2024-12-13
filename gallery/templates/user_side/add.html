@@ -32,9 +32,11 @@
         margin-left: 120px;
     }
 
-    #container {
-        max-width: 40%;
-        border-radius: 30px;
+    @media (max-width: 768px) {
+        #container {
+            max-width: 70%;
+            border-radius: 30px;
+        }
     }
     a{
         text-decoration: none;
@@ -82,7 +84,7 @@
     input{
         border-radius: 20px;
         width: 100px;
-        height: 40px;
+        height: 60px;
     }
     label{
         font-size: 25px;
@@ -91,10 +93,12 @@
         border-radius: 20px;
         height: 40px;
         background-color: white;
+        color: black;
         transition: all 0.5s ease-in-out;
         width: 300px;
         text-align: center;
-        margin-left: 140px;
+        margin-left: 40%;
+
     }
     #add:hover{
         background-color: #000;
@@ -102,6 +106,30 @@
         
     }
 
+input, button, label {
+    width: 100%;
+    display: block;
+    margin-bottom: 10px;
+}
+
+@media (min-width: 768px) {
+    #container .row {
+        display: flex;
+        flex-direction: column;
+    }
+
+    input, button {
+        max-width: 500px;
+    }
+
+    .d-flex {
+        flex-direction: row;
+    }
+}
+
+.d-flex div {
+    margin-right: 15px;
+}
 
     </style>
     <title>add product</title>
@@ -124,10 +152,7 @@
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         </form>
 
-                        <form class="d-flex" role="search ">
-                            <input id="search" class="form-control me-2 mt-3" type="search"
-                                placeholder="Search For your picture" aria-label="Search">
-                        </form>
+                        
                         <li class="nav-item">
                             <a class="nav-link" href="../favorite"><i class="fa-regular fa-star"></i>&nbsp;&nbsp;Favorite</a>
                         </li>
@@ -144,32 +169,36 @@
             </div>
         </nav>
    
-    <div id="container" class="container bg-white p-5 mt-4">
-        <h1 class="text-center" id="mycart">Add images</h1>
-        <hr class=" mb-4">
-        <form method="POST" enctype="multipart/form-data">
-        <div class="row p-4">
-            {% csrf_token %}
-            <label class="mt-5" for="file_id">File ID:</label>
-            <input type="text" id="pro_id" name="file_id" required><br><br>
-    
-            <label class="mt-5" for="name">Name:</label>
-            <input type="text" id="name" name="name" required><br><br>
-    
-            <label class="mt-5" for="file">File:</label>
-            <input type="file" id="img" name="file" required><br><br>
-
-            <div>
-                <label class="mt-5" for="Category">Category:</label><br><br>
-                <input type="radio" name="gallery" value="Image"> Image
-                <input type="radio" name="gallery" value="Video"> Video
-                <input type="radio" name="gallery" value="Audio"> Audio
-                <input type="radio" name="gallery" value="Others"> Others
-            </div>
-    
-            <button class="mt-5" id="add" type="submit">Add File</button>
-
+        <div id="container" class="container bg-white p-5 mt-4">
+            <h1 class="text-center" id="mycart">Add Images</h1>
+            <hr class="mb-4">
+            <form method="POST" enctype="multipart/form-data">
+                <div class="row p-4">
+                    {% csrf_token %}
+                    
+                    <label class="mt-3" for="file_id">File ID:</label>
+                    <input type="text" id="pro_id" name="file_id" class="form-control mb-3" required>
+        
+                    <label class="mt-3" for="name">Name:</label>
+                    <input type="text" id="name" name="name" class="form-control mb-3" required>
+        
+                    <label class="mt-3" for="file">File:</label>
+                    <input type="file" id="img" name="file" class="form-control mb-3" required>
+        
+                    <div>
+                        <label class="mt-3" for="Category">Category:</label><br>
+                        <div class="d-flex flex-wrap gap-3 mt-2">
+                            <div><input type="radio" name="gallery" value="Image"> Image</div>
+                            <div><input type="radio" name="gallery" value="Video"> Video</div>
+                            <div><input type="radio" name="gallery" value="Audio"> Audio</div>
+                            <div><input type="radio" name="gallery" value="Others"> Others</div>
+                        </div>
+                    </div>
+        
+                    <button class="mt-4 btn btn-primary" id="add" type="submit">Add File</button>
+                </div>
+            </form>
         </div>
-    </form>
+        
 
     </div>

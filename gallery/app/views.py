@@ -67,11 +67,17 @@ def index(request):
 
 def delete(request,id):
     data=gallery.objects.get(pk=id)
+    if data.file:
+        if os.path.isfile(data.file.path):
+            os.remove(data.file.path)
     data.delete()
     return redirect(index)
 
 def delete_file(request, id):
     data=gallery.objects.get(pk=id)
+    if data.file:
+        if os.path.isfile(data.file.path):
+            os.remove(data.file.path)
     data.delete()
     return redirect(see_more,a='default')
 
@@ -85,7 +91,6 @@ def picture(request, id):
 
 
 
-    # images=gallery.objects.filter(images=True)
 def view_all_file(req):
     file_type = req.GET.get('type', 'images') 
     if file_type == 'videos':
@@ -121,14 +126,7 @@ def see_more(req,a=None):
     context = {'files': files,'file_type': file_type,}
     return render(req,'user_side/see_more.html',context)
 
-# def view_all_vid(req):
-#     return render(req,'user_side/view_all_video.html')
 
-# def view_all_audio(req):
-#     return render(req,'user_side/view_all_audio.html')
-
-# def view_others(req):
-#     return render(req,'user_side/view_others.html')
 
 def add(request):
     log_user=User.objects.get(username=request.session['user'])
@@ -184,6 +182,9 @@ def add_to_fav(request,id):
 
 def fav_delete(req,id):
     data=gallery.objects.get(pk=id)
+    if data.file:
+        if os.path.isfile(data.file.path):
+            os.remove(data.file.path)
     data.delete()
     return redirect(favorites_page)
 
