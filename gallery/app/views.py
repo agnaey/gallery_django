@@ -19,7 +19,7 @@ def login_user(req):
             if data:
                 login(req,data)
                 req.session['user'] = username
-                return redirect('index')
+                return redirect(index)
             else:
                 messages.info(req,'invalid username or password')
             return redirect(login_user)
@@ -38,8 +38,7 @@ def register(req):
         try:
             user = User.objects.create_user(first_name=username,username=email, email=email, password=password)
             user.save()
-            messages.success(req, 'Account created successfully')
-            return redirect('login')
+            return redirect(login_user)
         except:
             messages.info(req, 'Invalid details, user may already exist')
             return redirect('/register')
