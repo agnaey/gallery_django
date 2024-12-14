@@ -146,8 +146,9 @@
                         {% if file_type == 'videos' %}
                         <video class="img-fluid" src="{{ file.file.url }}" controls></video>
                         {% elif file_type == 'audios' %}
-                        <audio class="img-fluid" src="{{ file.file.url }}" controls></audio>
-                        {% else %}
+                        <audio controls>
+                            <source src="{{ file.file.url }}" type="audio/mpeg">
+                        </audio>                         {% else %}
                         <img class="img-fluid " src="{{ file.file.url }}" alt="{{ file.name }}">
                         {% endif %}
                     <!-- </a> -->

@@ -181,8 +181,9 @@
                 <div class="col-md-3">
                     <a href="picture/{{ audio.id }}">
                         <div class="card">
-                            <audio src="{{ audio.file.url }}" alt="{{ audio.name }}">
-                            <div id="option" class="row">
+                            <audio controls>
+                                <source src="{{ audio.file.url }}" type="audio/mpeg">
+                            </audio>                            <div id="option" class="row">
                                 <a id="fav" href="add_fav/{{ audio.id }}" class="col">
                                     <i class="fa-regular fa-star"></i>&nbsp;Favorite
                                 </a>
